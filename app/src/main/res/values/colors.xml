@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="seed">#039be5</color>
-    <color name="md_theme_light_primary">#006496</color>
+    <color name="seed">#97ce4c</color>
+    <color name="md_theme_light_primary">#97ce4c</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primaryContainer">#CBE6FF</color>
+    <color name="md_theme_light_primaryContainer">#9A97CE4C</color>
     <color name="md_theme_light_onPrimaryContainer">#001E31</color>
     <color name="md_theme_light_secondary">#50606F</color>
     <color name="md_theme_light_onSecondary">#FFFFFF</color>

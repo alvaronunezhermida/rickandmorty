@@ -7,26 +7,11 @@
 
     <fragment
         android:id="@+id/breedsFragment"
-        android:name="com.rickandmorty.app.screens.breeds.BreedsFragment"
+        android:name="com.rickandmorty.app.screens.characters.CharactersFragment"
         android:label="fragment_breeds"
-        tools:layout="@layout/fragment_breeds" >
-
-        <action
-            android:id="@+id/action_breedsFragment_to_breedImagesFragment"
-            app:destination="@id/breedImagesFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_characters" >
 
     </fragment>
-
-    <fragment
-        android:id="@+id/breedImagesFragment"
-        android:name="com.rickandmorty.app.screens.breed_images.BreedImagesFragment"
-        android:label="fragment_breed_images"
-        tools:layout="@layout/fragment_breed_images"/>
 
 
     <dialog
