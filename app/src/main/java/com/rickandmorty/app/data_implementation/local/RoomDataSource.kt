@@ -15,12 +15,13 @@ import javax.inject.Inject
 class RoomDataSource @Inject constructor(private val characterDao: CharacterDao) :
     LocalDataSource {
 
-    override val breeds: Flow<List<Character>> = characterDao.getAll().map { it.toDomainBreedList() }
+    override val characters: Flow<List<Character>> =
+        characterDao.getAll().map { it.toDomainCharacterList() }
 
-    override suspend fun isBreedsListEmpty(): Boolean = characterDao.breedsCount() == 0
+    override suspend fun isCharactersListEmpty(): Boolean = characterDao.charactersCount() == 0
 
-    override suspend fun saveBreeds(characters: List<Character>): Either<Error, Empty> = try {
-        characterDao.insertBreeds(characters.toBreedEntityList())
+    override suspend fun saveCharacters(characters: List<Character>): Either<Error, Empty> = try {
+        characterDao.insertCharacters(characters.toCharacterEntityList())
         Empty().right()
     } catch (e: Exception) {
         Error.Unknown.left()

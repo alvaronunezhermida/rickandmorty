@@ -11,9 +11,9 @@ interface CharacterDao {
     fun getAll(): Flow<List<CharacterEntity>>
 
     @Query("SELECT COUNT(id) FROM CharacterEntity")
-    fun breedsCount(): Int
+    fun charactersCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertBreeds(breeds: List<CharacterEntity>)
+    fun insertCharacters(characters: List<CharacterEntity>)
 
 }

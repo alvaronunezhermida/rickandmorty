@@ -1,8 +1,5 @@
 package com.rickandmorty.app.navigation
 
-import android.os.Bundle
-import com.rickandmorty.app.R
-import com.rickandmorty.app.screens.breed_images.BreedImagesConfig.ARG_KEY
 import javax.inject.Inject
 
 /**
@@ -15,10 +12,4 @@ import javax.inject.Inject
  */
 class AppNavigator @Inject constructor() : ActivityNavigator() {
 
-    fun fromBreedsToBreedImages(breedName: String) {
-        goTo(id = R.id.action_breedsFragment_to_breedImagesFragment,
-            args = Bundle().apply {
-                putString(ARG_KEY, breedName)
-            })
-    }
 }

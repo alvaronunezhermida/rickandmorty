@@ -1,9 +1,10 @@
 package com.rickandmorty.usecases
 
+import com.rickandmorty.domain.Character
 import com.rickandmorty.domain.Location
 import com.rickandmorty.domain.Origin
 
-internal val sampleCharacter = com.rickandmorty.domain.Character(
+internal val sampleCharacter = Character(
     361,
     "Toxic Rick",
     "Dead",
