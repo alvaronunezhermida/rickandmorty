@@ -76,6 +76,7 @@ dependencies {
 
     implementation Libs.AndroidX.Navigation.fragmentKtx
     implementation Libs.AndroidX.Navigation.uiKtx
+    implementation Libs.AndroidX.Navigation.compose
 
     implementation Libs.AndroidX.Room.runtime
     implementation Libs.AndroidX.Room.ktx

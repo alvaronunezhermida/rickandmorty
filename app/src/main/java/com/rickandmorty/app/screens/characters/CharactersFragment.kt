@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,12 +56,14 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
         binding.composeView.setContent {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxSize(),
-                content = {
-                    items(characters) { character ->
-                        CharacterCard(character, viewModel)
-                    }
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp),
+            content = {
+                items(characters) { character ->
+                    CharacterCard(character, viewModel)
                 }
+            }
             )
         }
         binding.emptyState.root.isVisible = characters.isEmpty()
@@ -77,7 +80,7 @@ fun CharacterCard(character: Character, viewModel: CharactersViewModel) {
         onClick = { viewModel.onCharacterClicked(character) },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 8.dp, vertical = 8.dp)
             .height(175.dp),
         colors = CardDefaults.cardColors(containerColor = colorResource(R.color.md_theme_light_primaryContainer))
     ) {
@@ -91,7 +94,8 @@ fun CharacterCard(character: Character, viewModel: CharactersViewModel) {
                 null,
                 Modifier
                     .clip(RectangleShape)
-                    .fillMaxSize()
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop
             )
 
             // Title text overlaid on the image
@@ -101,7 +105,7 @@ fun CharacterCard(character: Character, viewModel: CharactersViewModel) {
                 fontSize = 18.sp,
                 modifier = Modifier
                     .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black)))
-                    .padding(16.dp)
+                    .padding(8.dp)
                     .fillMaxWidth()
                     .align(Alignment.BottomStart)
             )
