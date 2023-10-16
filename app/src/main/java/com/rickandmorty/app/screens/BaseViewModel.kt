@@ -49,10 +49,6 @@ open class BaseViewModel(
                 )
     )
 
-    open fun onStarted() {}
-
-    open fun onStop() {}
-
     protected open fun handleError(error: Error) = Unit
     open fun search(name: String) = Unit
 

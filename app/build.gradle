@@ -76,6 +76,7 @@ dependencies {
 
     implementation Libs.AndroidX.Navigation.fragmentKtx
     implementation Libs.AndroidX.Navigation.uiKtx
+    implementation Libs.AndroidX.Navigation.compose
 
     implementation Libs.AndroidX.Room.runtime
     implementation Libs.AndroidX.Room.ktx
@@ -97,6 +98,7 @@ dependencies {
     implementation Libs.Arrow.core
 
     implementation Libs.Hilt.android
+    implementation Libs.Hilt.navigationCompose
     kapt Libs.Hilt.compiler
 
     testImplementation Libs.JUnit.junit

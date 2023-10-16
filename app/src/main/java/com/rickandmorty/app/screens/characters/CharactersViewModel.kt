@@ -21,8 +21,7 @@ class CharactersViewModel @Inject constructor(
     val charactersState: StateFlow<List<Character>>
         get() = charactersMutableState
 
-    override fun onStarted() {
-        super.onStarted()
+    init {
         launchGetCharacters()
         launchLoadAllCharacters()
     }
