@@ -37,17 +37,19 @@ fun CharactersList(
     onClick: (Character) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
-        content = {
-            items(characters) { character ->
-                CharacterCard(character, onClick)
+    Box(modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .padding(8.dp),
+            content = {
+                items(characters) { character ->
+                    CharacterCard(character, onClick)
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

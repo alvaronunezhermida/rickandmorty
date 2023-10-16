@@ -11,14 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.compose.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun CharactersScreen(navController: NavHostController) {
-    val viewModel = viewModel<CharactersViewModel>()
+fun CharactersScreen(
+    navController: NavHostController,
+    viewModel: CharactersViewModel = hiltViewModel()
+) {
     val charactersList by viewModel.charactersState.collectAsState()
     AppTheme {
         // A surface container using the 'background' color from the theme
@@ -27,7 +29,8 @@ fun CharactersScreen(navController: NavHostController) {
             color = MaterialTheme.colorScheme.background
         ) {
             Scaffold(
-                topBar = { CharactersAppBar() }
+                topBar = { CharactersAppBar() },
+                modifier = Modifier.fillMaxSize()
             ) { padding ->
                 CharactersList(
                     characters = charactersList,

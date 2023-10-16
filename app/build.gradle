@@ -98,6 +98,7 @@ dependencies {
     implementation Libs.Arrow.core
 
     implementation Libs.Hilt.android
+    implementation Libs.Hilt.navigationCompose
     kapt Libs.Hilt.compiler
 
     testImplementation Libs.JUnit.junit
