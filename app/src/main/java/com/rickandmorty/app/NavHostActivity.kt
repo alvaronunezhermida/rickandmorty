@@ -22,7 +22,7 @@ class NavHostActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "characters") {
                 composable("characters") {
-                    CharactersScreen(navController)
+                    CharactersScreen(navController = navController)
                 }
                 composable("characterDetails") {
                     //CharacterDetailsScreen()
