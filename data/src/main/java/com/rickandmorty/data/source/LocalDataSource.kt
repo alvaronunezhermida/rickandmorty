@@ -11,4 +11,5 @@ interface LocalDataSource {
 
     suspend fun isCharactersListEmpty(): Boolean
     suspend fun saveCharacters(characters: List<Character>): Either<Error, Empty>
+    suspend fun getCharacter(characterId: Int): Either<Error, Character>
 }

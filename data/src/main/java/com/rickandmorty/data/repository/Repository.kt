@@ -61,4 +61,10 @@ class Repository @Inject constructor(
         }
     }
 
+    fun getCharacter(characterId: Int): Flow<Either<Error, Character>> = doRun {
+        flow {
+            emit(localDataSource.getCharacter(characterId))
+        }
+    }
+
 }
