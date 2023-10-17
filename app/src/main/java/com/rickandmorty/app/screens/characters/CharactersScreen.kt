@@ -13,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.compose.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -35,7 +37,9 @@ fun CharactersScreen(
                 CharactersList(
                     characters = charactersList,
                     onClick = {
-                        viewModel.onCharacterClicked(it)
+                        navController.navigate(
+                           route = "characterDetail/{it.id}"
+                        )
                     },
                     modifier = Modifier.padding(padding)
                 )

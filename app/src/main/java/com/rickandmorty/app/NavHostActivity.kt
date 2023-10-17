@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.rickandmorty.app.navigation.AppNavigator
+import com.rickandmorty.app.screens.character_detail.CharacterDetailScreen
 import com.rickandmorty.app.screens.characters.CharactersScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,8 +25,8 @@ class NavHostActivity : ComponentActivity() {
                 composable("characters") {
                     CharactersScreen(navController = navController)
                 }
-                composable("characterDetails") {
-                    //CharacterDetailsScreen()
+                composable("characterDetail") { backStackEntry ->
+                    CharacterDetailScreen(navController = navController, backStackEntry.arguments?.getInt("characterId")?:-1)
                 }
             }
         }

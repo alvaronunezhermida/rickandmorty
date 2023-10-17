@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import com.rickandmorty.domain.Character
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,14 +23,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.example.compose.AppTheme
+import com.rickandmorty.domain.Character
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun CharactersScreen(
+fun CharacterDetailScreen(
     navController: NavHostController,
+    characterId: Int,
     viewModel: CharacterDetailViewModel = hiltViewModel()
 ) {
-    val character: Character by viewModel.characterState.collectAsState()
+    val character: Character? by viewModel.characterState.collectAsState()
     AppTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -39,7 +39,7 @@ fun CharactersScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             Image(
-                painter = rememberImagePainter(data = character.image),
+                painter = rememberImagePainter(data = character?.image),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -50,19 +50,19 @@ fun CharactersScreen(
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
                 Text(
-                    text = character.name,
+                    text = character?.name ?: "",
                     modifier = Modifier.padding(top = 8.dp),
                     style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = character.gender,
+                    text = character?.gender ?: "",
                     modifier = Modifier.alpha(0.8f),
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = character.origin.name,
+                    text = character?.origin?.name ?: "",
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .alpha(0.7f),
@@ -70,6 +70,7 @@ fun CharactersScreen(
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Justify
                 )
+            }
         }
     }
 }

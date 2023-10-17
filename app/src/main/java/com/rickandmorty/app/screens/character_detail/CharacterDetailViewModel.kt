@@ -1,5 +1,6 @@
 package com.rickandmorty.app.screens.character_detail
 
+import androidx.lifecycle.SavedStateHandle
 import com.rickandmorty.app.navigation.AppNavigator
 import com.rickandmorty.app.screens.AppViewModel
 import com.rickandmorty.domain.Character
@@ -12,10 +13,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
+    savedStateHandle: SavedStateHandle,
     appNavigator: AppNavigator
 ) : AppViewModel(appNavigator = appNavigator) {
 
-    private val characterMutableState = MutableStateFlow(null)
+    //private val characterId = savedStateHandle.get<Int>(ItemId)
+
+    private val characterMutableState = MutableStateFlow<Character?>(null)
     val characterState: StateFlow<Character?>
         get() = characterMutableState
 
