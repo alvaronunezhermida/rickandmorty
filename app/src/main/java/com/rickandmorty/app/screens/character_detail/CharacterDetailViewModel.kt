@@ -1,10 +1,8 @@
 package com.rickandmorty.app.screens.character_detail
 
 import androidx.lifecycle.SavedStateHandle
-import com.rickandmorty.app.navigation.AppNavigator
-import com.rickandmorty.app.screens.AppViewModel
+import com.rickandmorty.app.screens.BaseViewModel
 import com.rickandmorty.domain.Character
-import com.rickandmorty.domain.Error
 import com.rickandmorty.usecases.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
-    savedStateHandle: SavedStateHandle,
-    appNavigator: AppNavigator
-) : AppViewModel(appNavigator = appNavigator) {
+    savedStateHandle: SavedStateHandle
+) : BaseViewModel() {
 
     private val characterId = savedStateHandle.get<Int>("characterId")
 
@@ -34,7 +31,7 @@ class CharacterDetailViewModel @Inject constructor(
                 getCharacterUseCase(GetCharacterUseCase.Params(it)).collect { either ->
                     either.fold(
                         { error ->
-                            appNavigator.toError(error)
+                            //TODO: handle error
                         },
                         { character ->
                             characterMutableState.value = character
@@ -42,7 +39,9 @@ class CharacterDetailViewModel @Inject constructor(
                     )
                 }
             }
-        }?: appNavigator.toError(Error.NullParams)
+        } ?: {
+            //TODO: handle error
+        }
     }
 
 }

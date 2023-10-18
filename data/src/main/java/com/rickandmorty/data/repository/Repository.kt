@@ -50,7 +50,7 @@ class Repository @Inject constructor(
         flow {
             val characters = remoteDataSource.getCharacters()
             characters.fold(
-                ifLeft = { emit(Error.Unknown.left()) },
+                ifLeft = { emit(Error().left()) },
                 ifRight = {
                     localDataSource.saveCharacters(it.characters)
                     emit(it.nextUrl.right())
@@ -63,7 +63,7 @@ class Repository @Inject constructor(
         flow {
             val characters = remoteDataSource.getMoreCharacters(nextUrl)
             characters.fold(
-                ifLeft = { emit(Error.Unknown.left()) },
+                ifLeft = { emit(Error().left()) },
                 ifRight = {
                     localDataSource.saveCharacters(it.characters)
                     emit(it.nextUrl.right())

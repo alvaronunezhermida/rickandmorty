@@ -5,8 +5,10 @@ import arrow.core.left
 import arrow.core.right
 import com.rickandmorty.data.repository.Repository
 import com.rickandmorty.data.source.LocalDataSource
+import com.rickandmorty.data.source.PreferencesDataSource
 import com.rickandmorty.data.source.RemoteDataSource
 import com.rickandmorty.domain.Character
+import com.rickandmorty.domain.CharacterResponse
 import com.rickandmorty.domain.Error
 import com.rickandmorty.domain.Location
 import com.rickandmorty.domain.Origin
@@ -34,6 +36,9 @@ class RepositoryTest {
     @Mock
     lateinit var remoteDataSource: RemoteDataSource
 
+    @Mock
+    lateinit var preferencesDataSource: PreferencesDataSource
+
     private lateinit var repository: Repository
 
     private val localCharacters =
@@ -42,7 +47,7 @@ class RepositoryTest {
     @Before
     fun setUp() {
         whenever(localDataSource.characters).thenReturn(localCharacters)
-        repository = Repository(remoteDataSource, localDataSource)
+        repository = Repository(preferencesDataSource, remoteDataSource, localDataSource)
     }
 
     @Test
@@ -54,14 +59,14 @@ class RepositoryTest {
 
     @Test
     fun `Characters are saved to local data source when it's empty`(): Unit = runTest {
-        val remoteCharacters = listOf(sampleCharacter)
+        val remoteCharactersResponse = CharacterResponse("nextUrl", listOf(sampleCharacter))
         whenever(localDataSource.isCharactersListEmpty()).thenReturn(true)
-        whenever(remoteDataSource.getCharacters()).thenReturn(remoteCharacters.right())
+        whenever(remoteDataSource.getCharacters()).thenReturn(remoteCharactersResponse.right())
 
         repository.loadCharacters().collect {
             it.fold(
-                { error -> assertEquals(Error.Unknown, error) },
-                { verify(localDataSource).saveCharacters(remoteCharacters) }
+                { error -> assertEquals(Error(), error) },
+                { verify(localDataSource).saveCharacters(remoteCharactersResponse.characters) }
             )
         }
 
@@ -104,5 +109,5 @@ private val sampleCharacter2 = Character(
 
 private fun <T> doRun(block: () -> Flow<Either<Error, T>>): Flow<Either<Error, T>> = block()
     .catch {
-        emit(Error.Unknown.left())
+        emit(Error().left())
     }.flowOn(Dispatchers.IO)

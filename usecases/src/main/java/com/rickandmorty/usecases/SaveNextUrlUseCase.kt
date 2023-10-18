@@ -16,7 +16,7 @@ class SaveNextUrlUseCase @Inject constructor(private val repository: Repository
     override fun run(params: Params?): Flow<Either<Error, Empty>> = params?.run {
         repository.saveNextUrl(nextUrl = nextUrl)
     } ?: flow {
-        emit(Error.Unknown.left())
+        emit(Error().left())
     }
 
     class Params(val nextUrl: String)

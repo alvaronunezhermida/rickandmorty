@@ -4,13 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.rickandmorty.app.data_implementation.local.preferences.AppPreferences
-import com.rickandmorty.app.data_implementation.local.room.Database
 import com.rickandmorty.app.data_implementation.local.preferences.PreferencesClient
+import com.rickandmorty.app.data_implementation.local.room.Database
 import com.rickandmorty.app.data_implementation.local.room.RoomDataSource
 import com.rickandmorty.app.data_implementation.remote.Api
 import com.rickandmorty.app.data_implementation.remote.clients.Client
-import com.rickandmorty.app.navigation.AppNavigator
 import com.rickandmorty.data.source.LocalDataSource
 import com.rickandmorty.data.source.PreferencesDataSource
 import com.rickandmorty.data.source.RemoteDataSource
@@ -38,12 +36,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideAppNavigator(): AppNavigator {
-        return AppNavigator()
-    }
 
     @Provides
     @Singleton

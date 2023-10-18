@@ -27,7 +27,7 @@ class RoomDataSource @Inject constructor(private val characterDao: CharacterDao)
         characterDao.insertCharacters(characters.toCharacterEntityList())
         Empty().right()
     } catch (e: Exception) {
-        Error.Unknown.left()
+        Error().left()
     }
 
     override suspend fun getCharacter(characterId: Int): Either<Error, Character> =

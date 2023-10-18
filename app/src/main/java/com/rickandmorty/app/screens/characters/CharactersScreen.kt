@@ -18,7 +18,6 @@ import com.rickandmorty.app.ui.theme.AppTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CharactersScreen(
-    navController: NavHostController,
     onClick: (Int) -> Unit,
     viewModel: CharactersViewModel = hiltViewModel()
 ) {

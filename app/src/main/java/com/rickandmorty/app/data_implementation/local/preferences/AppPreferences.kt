@@ -26,7 +26,7 @@ class AppPreferences @Inject constructor(private val sharedPreferences: SharedPr
             call()
         } catch (exception: Exception) {
             Timber.e(exception)
-            Either.Left(Error.Unknown)
+            Either.Left(Error())
         }
     }
 

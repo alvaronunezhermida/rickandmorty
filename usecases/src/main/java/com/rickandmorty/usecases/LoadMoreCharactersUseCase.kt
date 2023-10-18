@@ -15,7 +15,7 @@ class LoadMoreCharactersUseCase @Inject constructor(private val repository: Repo
     override fun run(params: Params?): Flow<Either<Error, String?>> = params?.run {
         repository.loadMoreCharacters(nextUrl = params.nextUrl)
     } ?: flow {
-        emit(Error.NullParams.left())
+        emit(Error().left())
     }
 
 

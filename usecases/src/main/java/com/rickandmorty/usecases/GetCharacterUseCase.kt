@@ -16,7 +16,7 @@ class GetCharacterUseCase @Inject constructor(private val repository: Repository
     override fun run(params: Params?): Flow<Either<Error, Character>> = params?.run {
         repository.getCharacter(characterId = params.characterId)
     } ?: flow {
-        emit(Error.NullParams.left())
+        emit(Error().left())
     }
 
 
