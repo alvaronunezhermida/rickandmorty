@@ -4,6 +4,7 @@ import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
 import com.rickandmorty.data.source.LocalDataSource
+import com.rickandmorty.data.source.PreferencesDataSource
 import com.rickandmorty.data.source.RemoteDataSource
 import com.rickandmorty.domain.Character
 import com.rickandmorty.domain.Empty
@@ -21,6 +22,7 @@ import javax.inject.Inject
  * @property localDataSource The local data source for character information.
  */
 class Repository @Inject constructor(
+    private val preferencesDataSource: PreferencesDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : BaseRepository() {
@@ -44,20 +46,47 @@ class Repository @Inject constructor(
      *   - If the operation is successful, [Empty] is emitted as [Either.Right].
      *   - If an error occurs, [Error.Unknown] is emitted as [Either.Left].
      */
-    fun loadCharacters(): Flow<Either<Error, Empty>> = doRun {
+    fun loadCharacters(): Flow<Either<Error, String?>> = doRun {
         flow {
-            if (localDataSource.isCharactersListEmpty()) {
-                val characters = remoteDataSource.getCharacters()
-                characters.fold(
-                    ifLeft = { emit(Error.Unknown.left()) },
-                    ifRight = {
-                        localDataSource.saveCharacters(it)
-                        emit(Empty().right())
-                    }
-                )
-            } else {
-                emit(Empty().right())
-            }
+            val characters = remoteDataSource.getCharacters()
+            characters.fold(
+                ifLeft = { emit(Error().left()) },
+                ifRight = {
+                    localDataSource.saveCharacters(it.characters)
+                    emit(it.nextUrl.right())
+                }
+            )
+        }
+    }
+
+    fun loadMoreCharacters(nextUrl: String): Flow<Either<Error, String?>> = doRun {
+        flow {
+            val characters = remoteDataSource.getMoreCharacters(nextUrl)
+            characters.fold(
+                ifLeft = { emit(Error().left()) },
+                ifRight = {
+                    localDataSource.saveCharacters(it.characters)
+                    emit(it.nextUrl.right())
+                }
+            )
+        }
+    }
+
+    fun getCharacter(characterId: Int): Flow<Either<Error, Character>> = doRun {
+        flow {
+            emit(localDataSource.getCharacter(characterId))
+        }
+    }
+
+    fun saveNextUrl(nextUrl: String): Flow<Either<Error, Empty>> = doRun {
+        flow {
+            emit(preferencesDataSource.saveNextUrl(nextUrl))
+        }
+    }
+
+    fun getNextUrl(): Flow<Either<Error, String?>> = doRun {
+        flow {
+            emit(preferencesDataSource.getNextUrl())
         }
     }
 

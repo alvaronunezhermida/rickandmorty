@@ -1,12 +1,5 @@
 package com.rickandmorty.domain
 
-sealed class Error {
-    data class Custom(
-        val title: String,
-        val detail: String
-    ) : Error()
-
-    object NullParams : Error()
-    object Unknown : Error()
-    object NullBody : Error()
-}
+data class Error(
+    val detail: String? = null
+)

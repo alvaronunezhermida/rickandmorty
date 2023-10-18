@@ -6,9 +6,9 @@ import com.rickandmorty.domain.Error
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LoadCharactersUseCase @Inject constructor(private val repository: Repository) :
+class GetNextUrlUseCase @Inject constructor(private val repository: Repository) :
     BaseUseCase<Void, String?>() {
 
     override fun run(params: Void?): Flow<Either<Error, String?>> =
-        repository.loadCharacters()
+        repository.getNextUrl()
 }

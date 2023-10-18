@@ -16,7 +16,7 @@ abstract class BaseRemote {
         invokeService(getResponse = getResponse, retry = true, map = map)
     } catch (exception: Exception) {
         Timber.e(exception)
-        Either.Left(Error.Unknown)
+        Either.Left(Error())
     }
 
     private suspend fun <Dto, Domain> invokeService(
@@ -29,9 +29,9 @@ abstract class BaseRemote {
         return if (response.isSuccessful) {
             response.body()?.let { dto ->
                 map(dto).right()
-            } ?: Error.NullBody.left()
+            } ?: Error().left()
         } else {
-            Error.Unknown.left()
+            Error().left()
         }
     }
 

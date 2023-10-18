@@ -13,12 +13,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.compose.AppTheme
+import com.rickandmorty.app.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CharactersScreen(
-    navController: NavHostController,
+    onClick: (Int) -> Unit,
     viewModel: CharactersViewModel = hiltViewModel()
 ) {
     val charactersList by viewModel.charactersState.collectAsState()
@@ -35,7 +35,10 @@ fun CharactersScreen(
                 CharactersList(
                     characters = charactersList,
                     onClick = {
-                        viewModel.onCharacterClicked(it)
+                        onClick(it.id)
+                    },
+                    loadMore = {
+                        viewModel.loadMore()
                     },
                     modifier = Modifier.padding(padding)
                 )

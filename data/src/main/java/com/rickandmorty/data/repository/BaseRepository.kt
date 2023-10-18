@@ -29,7 +29,7 @@ abstract class BaseRepository {
 
     protected fun <T> doRun(block: () -> Flow<Either<Error, T>>): Flow<Either<Error, T>> = block()
         .catch {
-            emit(Error.Unknown.left())
+            emit(Error().left())
         }.flowOn(Dispatchers.IO)
 
 }

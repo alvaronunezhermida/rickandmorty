@@ -2,12 +2,14 @@ package com.rickandmorty.app.screens.characters
 
 import app.cash.turbine.test
 import arrow.core.right
-import com.rickandmorty.app.navigation.AppNavigator
 import com.rickandmorty.app.testcommons.CoroutinesTestRule
 import com.rickandmorty.app.testcommons.sampleCharacter
 import com.rickandmorty.domain.Empty
 import com.rickandmorty.usecases.GetCharactersUseCase
+import com.rickandmorty.usecases.GetNextUrlUseCase
 import com.rickandmorty.usecases.LoadCharactersUseCase
+import com.rickandmorty.usecases.LoadMoreCharactersUseCase
+import com.rickandmorty.usecases.SaveNextUrlUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runCurrent
@@ -19,8 +21,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -36,7 +37,13 @@ class CharactersViewModelTest {
     lateinit var loadCharactersUseCase: LoadCharactersUseCase
 
     @Mock
-    lateinit var appNavigator: AppNavigator
+    lateinit var loadMoreCharactersUseCase: LoadMoreCharactersUseCase
+
+    @Mock
+    lateinit var saveNextUrlUseCase: SaveNextUrlUseCase
+
+    @Mock
+    lateinit var getNextUrlUseCase: GetNextUrlUseCase
 
     private lateinit var vm: CharactersViewModel
 
@@ -45,9 +52,18 @@ class CharactersViewModelTest {
     @Before
     fun setUp() {
         whenever(getCharactersUseCase()).thenReturn(flowOf(characters))
-        whenever(loadCharactersUseCase()).thenReturn(flowOf(Empty().right()))
-        vm = CharactersViewModel(getCharactersUseCase, loadCharactersUseCase, appNavigator)
-        vm.onStarted()
+        whenever(loadCharactersUseCase()).thenReturn(flowOf("nextUrl".right()))
+        whenever(loadMoreCharactersUseCase()).thenReturn(flowOf("nextUrl".right()))
+        whenever(getNextUrlUseCase()).thenReturn(flowOf("nextUrl".right()))
+        whenever(saveNextUrlUseCase()).thenReturn(flowOf(Empty().right()))
+
+        vm = CharactersViewModel(
+            getCharactersUseCase,
+            loadCharactersUseCase,
+            loadMoreCharactersUseCase,
+            saveNextUrlUseCase,
+            getNextUrlUseCase
+        )
     }
 
     @Test
@@ -64,8 +80,9 @@ class CharactersViewModelTest {
     }
 
     @Test
-    fun `Characters are requested when viewmodel starts`() = runTest {
+    fun `Characters are requested when viewmodel starts and nextUrl saved`() = runTest {
         runCurrent()
         verify(loadCharactersUseCase).invoke()
+        verify(saveNextUrlUseCase).invoke(any())
     }
 }

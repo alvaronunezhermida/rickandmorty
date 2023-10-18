@@ -48,8 +48,6 @@ open class BaseViewModel(
                     }
                 )
     )
-
-    protected open fun handleError(error: Error) = Unit
     open fun search(name: String) = Unit
 
     protected fun launch(body: suspend CoroutineScope.() -> Unit) =

@@ -32,7 +32,7 @@ abstract class BaseUseCase<in P, out M>(
      */
 
     operator fun invoke(params: P? = null): Flow<Either<Error, M>> = run(params = params)
-        .catch { emit(Error.Unknown.left()) }
+        .catch { emit(Error().left()) }
         .flowOn(context = dispatcher)
 
     protected abstract fun run(params: P?): Flow<Either<Error, M>>
