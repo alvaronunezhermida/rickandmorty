@@ -3,5 +3,10 @@
     <string name="breed_images">Breed Images</string>
     <string name="default_error">Ups… Something is going wrong. Try again later</string>
     <string name="ok">OK</string>
+    <string name="location">Location</string>
+    <string name="origin">Origin</string>
+    <string name="status">Status</string>
+    <string name="gender">Gender</string>
+    <string name="type">Type</string>
     <string name="empty_state">Nothing found</string>
 </resources>

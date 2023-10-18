@@ -1,7 +1,7 @@
-package com.rickandmorty.app.data_implementation.local.converters
+package com.rickandmorty.app.data_implementation.local.room.converters
 
 import androidx.room.TypeConverter
-import com.rickandmorty.app.data_implementation.local.entities.LocationEntity
+import com.rickandmorty.app.data_implementation.local.room.entities.LocationEntity
 import com.rickandmorty.app.helpers.JsonConverterHelper
 
 class LocationConverter {

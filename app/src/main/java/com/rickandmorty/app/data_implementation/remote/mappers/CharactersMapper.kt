@@ -5,11 +5,13 @@ import com.rickandmorty.app.data_implementation.remote.models.CharactersResponse
 import com.rickandmorty.app.data_implementation.remote.models.LocationDTO
 import com.rickandmorty.app.data_implementation.remote.models.OriginDTO
 import com.rickandmorty.domain.Character
+import com.rickandmorty.domain.CharacterResponse
 import com.rickandmorty.domain.Location
 import com.rickandmorty.domain.Origin
 
-fun CharactersResponseDTO.toDomain(): List<Character> =
-    characters?.map { it.toDomain() } ?: emptyList()
+fun CharactersResponseDTO.toDomain(): CharacterResponse =
+    CharacterResponse(nextUrl = info?.next,
+        characters = characters?.map { it.toDomain() } ?: emptyList())
 
 fun CharacterDTO.toDomain(): Character = Character(
     id = id,

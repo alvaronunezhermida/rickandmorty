@@ -2,8 +2,8 @@ package com.rickandmorty.app.di
 
 import android.app.Application
 import androidx.room.Room
-import com.rickandmorty.app.data_implementation.local.Database
-import com.rickandmorty.app.data_implementation.local.RoomDataSource
+import com.rickandmorty.app.data_implementation.local.room.Database
+import com.rickandmorty.app.data_implementation.local.room.RoomDataSource
 import com.rickandmorty.app.data_implementation.remote.Api
 import com.rickandmorty.app.data_implementation.remote.clients.Client
 import com.rickandmorty.app.navigation.AppNavigator
@@ -42,7 +42,7 @@ object TestAppModule {
 
     @Provides
     @Singleton
-    fun provideBreedDao(db: Database) = db.breedDao()
+    fun provideBreedDao(db: Database) = db.characterDao()
 
     @Provides
     @Singleton

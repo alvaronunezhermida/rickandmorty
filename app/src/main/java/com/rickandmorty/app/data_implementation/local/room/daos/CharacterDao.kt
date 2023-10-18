@@ -1,7 +1,7 @@
-package com.rickandmorty.app.data_implementation.local.daos
+package com.rickandmorty.app.data_implementation.local.room.daos
 
 import androidx.room.*
-import com.rickandmorty.app.data_implementation.local.entities.CharacterEntity
+import com.rickandmorty.app.data_implementation.local.room.entities.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

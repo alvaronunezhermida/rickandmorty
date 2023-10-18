@@ -1,17 +1,23 @@
 package com.rickandmorty.app.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
-import com.rickandmorty.app.data_implementation.local.Database
-import com.rickandmorty.app.data_implementation.local.RoomDataSource
+import com.rickandmorty.app.data_implementation.local.preferences.AppPreferences
+import com.rickandmorty.app.data_implementation.local.room.Database
+import com.rickandmorty.app.data_implementation.local.preferences.PreferencesClient
+import com.rickandmorty.app.data_implementation.local.room.RoomDataSource
 import com.rickandmorty.app.data_implementation.remote.Api
 import com.rickandmorty.app.data_implementation.remote.clients.Client
 import com.rickandmorty.app.navigation.AppNavigator
 import com.rickandmorty.data.source.LocalDataSource
+import com.rickandmorty.data.source.PreferencesDataSource
 import com.rickandmorty.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -53,6 +59,11 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("rickandmorty-preferences", Context.MODE_PRIVATE)
+
+    @Provides
+    @Singleton
     @ApiUrl
     fun provideApiUrl(): String = "https://rickandmortyapi.com/api/"
 
@@ -78,6 +89,11 @@ object AppModule {
     @Singleton
     fun provideLocalDataSource(roomDataSource: RoomDataSource): LocalDataSource =
         roomDataSource
+
+    @Provides
+    @Singleton
+    fun providePreferencesDataSource(preferencesClient: PreferencesClient): PreferencesDataSource =
+        preferencesClient
 
     @Provides
     @Singleton

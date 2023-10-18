@@ -1,8 +1,8 @@
-package com.rickandmorty.app.data_implementation.local
+package com.rickandmorty.app.data_implementation.local.room
 
-import com.rickandmorty.app.data_implementation.local.entities.CharacterEntity
-import com.rickandmorty.app.data_implementation.local.entities.LocationEntity
-import com.rickandmorty.app.data_implementation.local.entities.OriginEntity
+import com.rickandmorty.app.data_implementation.local.room.entities.CharacterEntity
+import com.rickandmorty.app.data_implementation.local.room.entities.LocationEntity
+import com.rickandmorty.app.data_implementation.local.room.entities.OriginEntity
 import com.rickandmorty.domain.Character
 import com.rickandmorty.domain.Location
 import com.rickandmorty.domain.Origin

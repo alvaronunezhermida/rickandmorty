@@ -1,9 +1,12 @@
-package com.rickandmorty.app.data_implementation.local
+package com.rickandmorty.app.data_implementation.local.room
 
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import com.rickandmorty.app.data_implementation.local.daos.CharacterDao
+import com.rickandmorty.app.data_implementation.local.room.daos.CharacterDao
+import com.rickandmorty.app.data_implementation.local.room.toCharacterEntityList
+import com.rickandmorty.app.data_implementation.local.room.toDomainCharacter
+import com.rickandmorty.app.data_implementation.local.room.toDomainCharacterList
 import com.rickandmorty.data.source.LocalDataSource
 import com.rickandmorty.domain.Character
 import com.rickandmorty.domain.Empty

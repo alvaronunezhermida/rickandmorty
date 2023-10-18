@@ -12,9 +12,18 @@ class Client @Inject constructor(
     private val api: Api,
 ) : RemoteDataSource, BaseRemote() {
 
-    override suspend fun getCharacters(): Either<Error, List<Character>> = doRun(
+    override suspend fun getCharacters(): Either<Error, CharacterResponse> = doRun(
         getResponse = {
             api.getCharacters()
+        },
+        map = { dto ->
+            dto.toDomain()
+        }
+    )
+
+    override suspend fun getMoreCharacters(nextUrl: String): Either<Error, CharacterResponse> = doRun(
+        getResponse = {
+            api.getMoreCharacters(nextUrl)
         },
         map = { dto ->
             dto.toDomain()
